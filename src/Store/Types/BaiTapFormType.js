@@ -1,0 +1,4 @@
+export const THEM_SINH_VIEN = "THEM_SINH_VIEN";
+export const SET_SELECTED = "SET_SELECTED";
+export const DELETE_SINHVIEN = "DELETE_SINHVIEN";
+export const SUA_SINHVIEN = "SUA_SINHVIEN"
