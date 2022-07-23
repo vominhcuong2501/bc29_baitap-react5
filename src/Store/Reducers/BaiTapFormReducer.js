@@ -6,26 +6,7 @@ import {
 } from "../Types/BaiTapFormType";
 
 const DEFAULT_STATE = {
-  mangSinhVien: [
-    {
-      maSV: "1234",
-      tenSV: "Vân Chi",
-      email: "1234@gmail.com",
-      soDienThoai: "1234",
-    },
-    {
-      maSV: "1235",
-      tenSV: "Mỹ Đỗ Toa",
-      email: "1235@gmail.com",
-      soDienThoai: "1235",
-    },
-    {
-      maSV: "1236",
-      tenSV: "Thanh Lân",
-      email: "1236@gmail.com",
-      soDienThoai: "1236",
-    },
-  ],
+  mangSinhVien: [],
   selectedSV: null,
 };
 
@@ -35,7 +16,7 @@ export const BaiTapFormReducer = (state = DEFAULT_STATE, { type, payload }) => {
       let mangSinhVienNew = [...state.mangSinhVien];
       for(let i = 0; i < mangSinhVienNew.length; i++) {
         if(payload.maSV === mangSinhVienNew[i].maSV){
-            return alert("ID already exists!!!")
+            return alert("Mã SV đã tồn tại!!!")
         }
       }
       mangSinhVienNew.push(payload);

@@ -9,6 +9,8 @@ let DEFAULT_STATE = {
 };
 
 class FormSV extends Component {
+  //thuộc tính cấp ngoài cùng thì khi setState sẽ chỉ set lại thằng mới và giữ lại những giá trị cũ
+  // thuộc tính bên trong 1 cấp thì khi setState sẽ mất đi giá trị cũ mà chỉ set cái mới
   state = {
     values: DEFAULT_STATE,
     errors: {
@@ -22,6 +24,7 @@ class FormSV extends Component {
   // tạo để gán vào thẻ form lấy được sự kiện event.target
   formRef = createRef();
 
+  // chuyển đổi props thành state với điều kiện props tồn tại và mã SV của props !== state
   static getDerivedStateFromProps(nextProps, currentState) {
     if (
       nextProps.selectedSV &&
@@ -51,17 +54,15 @@ class FormSV extends Component {
     if (valueMissing) {
       message = `${title} is required`;
     }
-    this.setState(
-      {
-        errors: { ...this.state.errors, [name]: message },
-        values: { ...this.state.values, [name]: value },
-      }
-    );
+    this.setState({
+      errors: { ...this.state.errors, [name]: message },
+      values: { ...this.state.values, [name]: value },
+    });
   };
 
   handleSubMit = (event) => {
     event.preventDefault();
-    // dựa vào true false của checkValidity mà xét disabled cho nút thêmSV
+    // dựa vào true false của checkValidity mà xét validation và disabled cho nút thêmSV
     if (!event.target.checkValidity()) {
       return;
     }
@@ -71,12 +72,21 @@ class FormSV extends Component {
     } else {
       this.props.dispatch(themSinhVien(this.state.values));
     }
-    this.setState({
-      values: DEFAULT_STATE,
-    });
+    this.setState(
+      {
+        values: DEFAULT_STATE,
+      },
+      () => {
+        // dùng để bắt component render lại lần nữa
+        this.forceUpdate();
+      }
+    );
   };
 
   render() {
+    // nếu selected = null mà  bóc tách sẽ bị lỗi nên cho nó hoặc rỗng
+    // const { maSV, tenSV, email, soDienThoai } = this.props.selectedSV || {};
+    // ở trên chuyển props thành state ta đổi ở dưới đây
     const { maSV, tenSV, email, soDienThoai } = this.state.values || {};
     return (
       <div className="container p-0 my-5">
@@ -165,13 +175,21 @@ class FormSV extends Component {
               <div className="row">
                 <div className="text-right col-md-12">
                   <button
+                    // đối với formRef thì current === event.target
+                    // ? khi current có giá trị thì nó mới xét tới checkValidity, còn không thì không sử dụng tới
                     disabled={!this.formRef.current?.checkValidity()}
                     type="submit"
                     className="btn btn-success"
                   >
                     Thêm sinh viên
                   </button>
-                  <button type="reset" className="btn btn-warning">
+                  <button
+                    type="reset"
+                    className="btn btn-warning"
+                    onClick={(e) => {
+                      this.setState({values: DEFAULT_STATE} );
+                    }}
+                  >
                     Reset
                   </button>
                 </div>
