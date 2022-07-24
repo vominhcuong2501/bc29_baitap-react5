@@ -36,6 +36,7 @@ class FormSV extends Component {
   }
 
   handleChange = (event) => {
+    //  các thuộc tính kia của event nên check console.log(event)
     const {
       name,
       value,
@@ -65,6 +66,12 @@ class FormSV extends Component {
     // dựa vào true false của checkValidity mà xét validation và disabled cho nút thêmSV
     if (!event.target.checkValidity()) {
       return;
+    }
+    for(let i = 0; i < this.props.mangSinhVien.length; i++) {
+      if(this.state.values.userName === this.props.mangSinhVien[i].userName) {
+        alert('Usernmae already exists!!')
+        return;
+      }
     }
 
     if (this.props.selectedSV) {

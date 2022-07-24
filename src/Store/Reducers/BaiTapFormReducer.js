@@ -14,11 +14,6 @@ export const BaiTapFormReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
     case THEM_SINH_VIEN: {
       let mangSinhVienNew = [...state.mangSinhVien];
-      for(let i = 0; i < mangSinhVienNew.length; i++) {
-        if(payload.maSV === mangSinhVienNew[i].maSV){
-            return alert("Mã SV đã tồn tại!!!")
-        }
-      }
       mangSinhVienNew.push(payload);
       state.mangSinhVien = mangSinhVienNew;
       return { ...state };
