@@ -12,10 +12,10 @@ const suaThongTinSV = (values) => {
         payload: values,
       }
 }
-const xoaSinhVien = (maSV) => {
+const xoaSinhVien = (id) => {
     return {
         type: DELETE_SINHVIEN,
-        payload: maSV
+        payload: id
       }
 }
 const hienThongTinSua = (sinhVien) => {

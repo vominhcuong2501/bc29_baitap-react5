@@ -28,9 +28,10 @@ class FormSV extends Component {
   static getDerivedStateFromProps(nextProps, currentState) {
     if (
       nextProps.selectedSV &&
-      currentState.values.maSV !== nextProps.selectedSV.maSV
+      currentState.values.id !== nextProps.selectedSV.id
     ) {
       currentState.values = nextProps.selectedSV;
+      console.log(currentState.values, nextProps.selectedSV);
     }
     return currentState;
   }

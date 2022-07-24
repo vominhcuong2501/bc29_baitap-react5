@@ -36,7 +36,7 @@ class TableSV extends Component {
             </button>
             <button
               className="btn btn-danger"
-              onClick={() => this.props.dispatch(xoaSinhVien(sinhVien.maSV))}
+              onClick={() => this.props.dispatch(xoaSinhVien(sinhVien.id))}
             >
               Xóa
             </button>

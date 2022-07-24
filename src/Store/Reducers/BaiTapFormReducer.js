@@ -6,7 +6,22 @@ import {
 } from "../Types/BaiTapFormType";
 
 const DEFAULT_STATE = {
-  mangSinhVien: [],
+  mangSinhVien: [
+    {
+      id: 1,
+      maSV: '08026',
+      tenSV: "John Cena",
+      soDienThoai: 1234,
+      email: "1234@gmail.com",
+    },
+    {
+      id: 2,
+      maSV: '09306',
+      tenSV: "Triple H",
+      soDienThoai: 5678,
+      email: "5678@gmail.com",
+    },
+  ],
   selectedSV: null,
 };
 
@@ -14,7 +29,7 @@ export const BaiTapFormReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
     case THEM_SINH_VIEN: {
       let mangSinhVienNew = [...state.mangSinhVien];
-      mangSinhVienNew.push(payload);
+      mangSinhVienNew.push({...payload, id: Date.now()});
       state.mangSinhVien = mangSinhVienNew;
       return { ...state };
     }
@@ -24,7 +39,7 @@ export const BaiTapFormReducer = (state = DEFAULT_STATE, { type, payload }) => {
     }
     case DELETE_SINHVIEN: {
       state.mangSinhVien = state.mangSinhVien.filter(
-        (sinhVien) => sinhVien.maSV !== payload
+        (sinhVien) => sinhVien.id !== payload
       );
       return { ...state };
     }
@@ -37,7 +52,7 @@ export const BaiTapFormReducer = (state = DEFAULT_STATE, { type, payload }) => {
       // }
       // state.mangSinhVien = data;
       state.mangSinhVien = state.mangSinhVien.map((sinhVien) =>
-        sinhVien.maSV === payload.maSV ? payload : sinhVien
+        sinhVien.id === payload.id ? payload : sinhVien
       );
       state.selectedSV = null;
       return { ...state };
