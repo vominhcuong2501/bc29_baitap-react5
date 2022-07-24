@@ -67,12 +67,6 @@ class FormSV extends Component {
     if (!event.target.checkValidity()) {
       return;
     }
-    for(let i = 0; i < this.props.mangSinhVien.length; i++) {
-      if(this.state.values.userName === this.props.mangSinhVien[i].userName) {
-        alert('Usernmae already exists!!')
-        return;
-      }
-    }
 
     if (this.props.selectedSV) {
       this.props.dispatch(suaThongTinSV(this.state.values));
